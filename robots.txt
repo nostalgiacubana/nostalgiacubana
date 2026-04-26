@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://nostalgiacubana.github.io/nostalgiacubana/sitemap.xml
