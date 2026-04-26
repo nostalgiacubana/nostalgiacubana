@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Nostalgia Cubana - Menú Oficial | Comida a domicilio en La Habana</title>
+    <title>Nostalgia Cubana - Carrito y Factura | Comida a domicilio</title>
     <style>
         * {
             margin: 0;
@@ -16,88 +16,85 @@
             background-color: #FDF8F0;
             color: #3E2A1F;
             line-height: 1.5;
-            padding: 0 0 2rem 0;
         }
 
-        .container {
-            max-width: 1200px;
+        /* Layout de dos columnas */
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1400px;
             margin: 0 auto;
+            gap: 1rem;
             padding: 1rem;
+        }
+
+        /* Columna izquierda: menú */
+        .menu-col {
+            flex: 2;
+            min-width: 260px;
+        }
+
+        /* Columna derecha: factura / carrito */
+        .cart-col {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 1rem;
+            align-self: flex-start;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #f0e1d4;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .hero {
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 1rem 1rem 1.5rem;
             background: linear-gradient(145deg, #FDF8F0 0%, #f7e9da 100%);
-            border-radius: 0 0 3rem 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #C7362F;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.5rem;
-            font-weight: 800;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            max-width: 650px;
-            margin: 0 auto 1.5rem auto;
+            font-size: 1rem;
             color: #5e3a2c;
-        }
-
-        .btn-whatsapp-grande {
-            display: inline-block;
-            background-color: #25D366;
-            color: white;
-            padding: 0.9rem 2rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 60px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
-            border: 1px solid #C7362F;
-        }
-
-        .btn-whatsapp-grande:hover {
-            background-color: #1da15a;
-            transform: scale(1.02);
         }
 
         .menu-section {
             background: white;
-            border-radius: 2rem;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border-left: 6px solid #C7362F;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid #C7362F;
         }
 
         .menu-section h2 {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             color: #C7362F;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 1rem;
             border-bottom: 2px dashed #f0cfc6;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.3rem;
         }
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 0.8rem;
         }
 
         .menu-item {
             background: #FEFAF5;
-            padding: 0.8rem 1rem;
-            border-radius: 1.5rem;
+            padding: 0.6rem 0.8rem;
+            border-radius: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -111,141 +108,215 @@
 
         .item-name {
             font-weight: bold;
-            font-size: 1rem;
-            color: #3E2A1F;
+            font-size: 0.9rem;
         }
 
         .item-price {
             color: #1E3A5F;
             font-weight: 800;
-            font-size: 1rem;
-            margin-top: 0.2rem;
-            display: inline-block;
+            font-size: 0.85rem;
             background: #eef2f5;
-            padding: 0.1rem 0.6rem;
-            border-radius: 30px;
+            padding: 0.1rem 0.5rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 0.2rem;
         }
 
-        .btn-pedir {
-            background-color: #25D366;
+        .btn-agregar {
+            background-color: #C7362F;
             border: none;
             color: white;
             font-weight: bold;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             transition: 0.2s;
-            margin-left: 0.5rem;
-            white-space: nowrap;
         }
 
-        .btn-pedir:hover {
+        .btn-agregar:hover {
+            background-color: #9e2a24;
+        }
+
+        /* Estilos factura */
+        .cart-title {
+            font-size: 1.5rem;
+            color: #C7362F;
+            font-weight: bold;
+            border-bottom: 2px solid #C7362F;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cart-items {
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 0.6rem 0;
+            font-size: 0.85rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .cart-item-info {
+            flex: 2;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            display: block;
+        }
+
+        .cart-item-price {
+            font-size: 0.75rem;
+            color: #1E3A5F;
+        }
+
+        .cart-item-cant {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cart-item-cant input {
+            width: 45px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .cart-item-subtotal {
+            font-weight: bold;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: #c0392b;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: right;
+            border-top: 2px solid #C7362F;
+            padding-top: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-whatsapp-final {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            width: 100%;
+            font-weight: bold;
+            border-radius: 40px;
+            margin-top: 1.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-whatsapp-final:hover {
             background-color: #128C7E;
         }
 
-        .info-box {
-            background: #fff2e6;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin-top: 2rem;
+        .empty-cart {
             text-align: center;
-        }
-
-        .delivery-zones {
-            background: #1E3A5F;
-            color: white;
+            color: gray;
             padding: 1rem;
-            border-radius: 1.5rem;
-            margin-top: 1rem;
         }
 
-        .delivery-zones h3 {
-            color: #ffcfb6;
-            margin-bottom: 0.5rem;
-        }
-
-        footer {
+        .delivery-info {
+            font-size: 0.7rem;
             text-align: center;
-            margin-top: 3rem;
-            font-size: 0.85rem;
-            color: #7f614e;
-            border-top: 1px solid #eedbcb;
-            padding-top: 1.5rem;
+            margin-top: 1rem;
+            color: #5e3a2c;
         }
 
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 1.8rem; }
-            .menu-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            .btn-pedir { align-self: flex-end; margin-left: 0; }
-            .container { padding: 0.8rem; }
+        @media (max-width: 800px) {
+            .app-container {
+                flex-direction: column;
+            }
+            .cart-col {
+                position: static;
+                order: -1;
+                margin-bottom: 1rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="hero">
-        <h1>🇨🇺 Nostalgia Cubana</h1>
-        <p>La auténtica comida casera cubana, directo a tu casa en toda La Habana.<br> 
-        <strong>De 9:00 AM a 9:00 PM</strong> — ¡Pide ya!</p>
-        <a href="https://wa.me/53563220737?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Nostalgia%20Cubana%20%F0%9F%8D%9B%F0%9F%8D%97" 
-           class="btn-whatsapp-grande" target="_blank">
-           📲 PEDIR POR WHATSAPP (Pedido general)
-        </a>
-    </div>
-
-    <!-- ENTRANTES -->
-    <div class="menu-section">
-        <h2>🍟 ENTRANTES · Pa’ romper el hielo</h2>
-        <div class="menu-grid" id="entrantes-grid"></div>
-    </div>
-
-    <!-- TOSTONES RELLENOS -->
-    <div class="menu-section">
-        <h2>🍤 TOSTONES RELLENOS · Bien carga’os</h2>
-        <div class="menu-grid" id="tostones-grid"></div>
-    </div>
-
-    <!-- GUARNICIONES Y ENVASE -->
-    <div class="menu-section">
-        <h2>🍚 GUARNICIONES + ENVASE</h2>
-        <div class="menu-grid" id="guarniciones-grid"></div>
-    </div>
-
-    <!-- PLATOS PRINCIPALES (NUEVA VERSIÓN) -->
-    <div class="menu-section">
-        <h2>🍛 PLATOS PRINCIPALES · Con guarnición a tu gusto</h2>
-        <div class="menu-grid" id="principales-grid"></div>
-    </div>
-
-    <!-- Info de servicio y entrega -->
-    <div class="info-box">
-        <p>⭐ <strong>Nostalgia Cubana</strong> — Sabor tradicional hecho con amor.<br>
-        🚚 <strong>Envíos a toda La Habana</strong> (consulta costo por WhatsApp).<br>
-        🕘 Horario: Todos los días 9:00 AM - 9:00 PM.</p>
-        <div class="delivery-zones">
-            <h3>📍 Zonas de entrega</h3>
-            <p>✅ Entregamos en TODA LA HABANA: Centro, Vedado, Playa, Miramar, La Habana Vieja, Marianao, Diez de Octubre, Arroyo Naranjo, Boyeros, Guanabacoa, etc.</p>
+<div class="app-container">
+    <!-- COLUMNA IZQUIERDA: MENÚ COMPLETO -->
+    <div class="menu-col">
+        <div class="hero">
+            <h1>🇨🇺 Nostalgia Cubana</h1>
+            <p>La auténtica comida casera cubana en toda La Habana.<br> 🕘 9:00 AM - 9:00 PM</p>
         </div>
-        <p style="margin-top: 1rem;">📞 WhatsApp: <strong>+53 63220737</strong> | 📸 Instagram: <strong>@nostalgiacubana</strong></p>
+
+        <!-- ENTRANTES -->
+        <div class="menu-section">
+            <h2>🍟 ENTRANTES · Pa’ romper el hielo</h2>
+            <div class="menu-grid" id="entrantes-grid"></div>
+        </div>
+
+        <!-- TOSTONES RELLENOS -->
+        <div class="menu-section">
+            <h2>🍤 TOSTONES RELLENOS · Bien carga’os</h2>
+            <div class="menu-grid" id="tostones-grid"></div>
+        </div>
+
+        <!-- GUARNICIONES + ENVASE -->
+        <div class="menu-section">
+            <h2>🍚 GUARNICIONES + ENVASE</h2>
+            <div class="menu-grid" id="guarniciones-grid"></div>
+        </div>
+
+        <!-- PLATOS PRINCIPALES -->
+        <div class="menu-section">
+            <h2>🍛 PLATOS PRINCIPALES · Con guarnición a tu gusto</h2>
+            <div class="menu-grid" id="principales-grid"></div>
+        </div>
     </div>
 
-    <footer>
-        Nostalgia Cubana – Comida que sabe a Cuba 🇨🇺<br>
-        Menú actualizado | Pedidos por WhatsApp
-    </footer>
+    <!-- COLUMNA DERECHA: FACTURA / CARRITO -->
+    <div class="cart-col">
+        <div class="cart-title">
+            🧾 TU PEDIDO
+            <span id="cart-count">(0)</span>
+        </div>
+        <div id="cart-items-list" class="cart-items">
+            <div class="empty-cart">Aún no hay platos. Agrega desde la carta ➕</div>
+        </div>
+        <div id="cart-total" class="cart-total">Total: $0</div>
+        <button id="btn-finalizar" class="btn-whatsapp-final">📲 PEDIR POR WHATSAPP</button>
+        <div class="delivery-info">
+            🚚 Envío a toda La Habana (consultar costo)<br>
+            📞 WhatsApp: +53 63220737
+        </div>
+    </div>
 </div>
 
 <script>
     // ==========================================================
-    // NUEVO MENÚ COMPLETO según archivo IMG-20260426-WA0011.jpg
-    // + Número de contacto actualizado: +53 63220737
+    // MENÚ COMPLETO (según última versión)
     // ==========================================================
-
-    const phoneNumber = "53563220737";  // Solo dígitos, sin '+' para la URL
-
-    // 1. ENTRANTES
     const entrantes = [
         { nombre: "Puré de malanga", precio: 500 },
         { nombre: "Tostones chatinos", precio: 350 },
@@ -260,21 +331,18 @@
         { nombre: "Picadera nostalgia cubana", precio: 3000 }
     ];
 
-    // 2. TOSTONES RELLENOS
     const tostones = [
         { nombre: "Tostón relleno de jamón", precio: 600 },
         { nombre: "Tostón relleno de atún", precio: 850 },
         { nombre: "Tostón relleno de jamón y queso", precio: 850 }
     ];
 
-    // 3. GUARNICIONES ADICIONALES + TERMO PACK
     const guarniciones = [
         { nombre: "Arroz moro (adicional)", precio: 250 },
         { nombre: "Arroz blanco (adicional)", precio: 250 },
         { nombre: "Termo pack (envase)", precio: 100 }
     ];
 
-    // 4. PLATOS PRINCIPALES (actualizados)
     const principales = [
         { nombre: "Arroz frito", precio: 1300 },
         { nombre: "Bistec encobillado", precio: 1500 },
@@ -291,40 +359,175 @@
         { nombre: "Higado a la italiana", precio: 1300 }
     ];
 
-    // Función genérica para renderizar
-    function renderItems(items, containerId) {
+    // Carrito global: array de objetos { id, nombre, precio, cantidad }
+    let cart = [];
+
+    // Helper: generar ID único para cada item (basado en nombre)
+    function getItemId(nombre) {
+        return nombre.toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    // Agregar al carrito (solicita cantidad)
+    function addToCart(item) {
+        let cantidad = prompt(`¿Cuántas raciones de "${item.nombre}" deseas agregar?`, "1");
+        if (cantidad === null) return;
+        let num = parseInt(cantidad);
+        if (isNaN(num) || num <= 0) {
+            alert("Cantidad no válida. No se agregó nada.");
+            return;
+        }
+        const idBase = getItemId(item.nombre);
+        // Buscar si ya existe el mismo plato
+        const existing = cart.find(i => i.id === idBase);
+        if (existing) {
+            existing.cantidad += num;
+        } else {
+            cart.push({
+                id: idBase,
+                nombre: item.nombre,
+                precio: item.precio,
+                cantidad: num
+            });
+        }
+        renderCart();
+    }
+
+    // Eliminar item del carrito
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== id);
+        renderCart();
+    }
+
+    // Actualizar cantidad desde el carrito
+    function updateQuantity(id, newCant) {
+        const item = cart.find(i => i.id === id);
+        if (item) {
+            let cant = parseInt(newCant);
+            if (isNaN(cant) || cant <= 0) {
+                removeFromCart(id);
+            } else {
+                item.cantidad = cant;
+                renderCart();
+            }
+        }
+    }
+
+    // Renderizar la factura (columna derecha)
+    function renderCart() {
+        const container = document.getElementById("cart-items-list");
+        const totalSpan = document.getElementById("cart-total");
+        const countSpan = document.getElementById("cart-count");
+        if (!container) return;
+
+        if (cart.length === 0) {
+            container.innerHTML = '<div class="empty-cart">Aún no hay platos. Agrega desde la carta ➕</div>';
+            totalSpan.innerHTML = "Total: $0";
+            countSpan.innerText = "(0)";
+            return;
+        }
+
+        let html = "";
+        let totalGeneral = 0;
+        cart.forEach(item => {
+            const subtotal = item.precio * item.cantidad;
+            totalGeneral += subtotal;
+            html += `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <span class="cart-item-name">${item.nombre}</span>
+                        <span class="cart-item-price">$${item.precio} c/u</span>
+                    </div>
+                    <div class="cart-item-cant">
+                        <input type="number" value="${item.cantidad}" min="1" style="width:55px" data-id="${item.id}" class="cart-qty-input">
+                        <span class="cart-item-subtotal">$${subtotal}</span>
+                        <button class="btn-remove" data-id="${item.id}">🗑️</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+        totalSpan.innerHTML = `Total: $${totalGeneral}`;
+        countSpan.innerText = `(${cart.length})`;
+
+        // Eventos a los inputs de cantidad y botones eliminar
+        document.querySelectorAll('.cart-qty-input').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const id = e.target.getAttribute('data-id');
+                updateQuantity(id, e.target.value);
+            });
+        });
+        document.querySelectorAll('.btn-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = btn.getAttribute('data-id');
+                removeFromCart(id);
+            });
+        });
+    }
+
+    // Generar mensaje para WhatsApp con todos los detalles
+    function generarMensajePedido() {
+        if (cart.length === 0) {
+            alert("Tu carrito está vacío. Agrega algunos platos antes de pedir.");
+            return null;
+        }
+        let mensaje = "🍽️ *MI PEDIDO EN NOSTALGIA CUBANA* 🍽️%0A";
+        let totalGeneral = 0;
+        cart.forEach(item => {
+            const subtotal = item.precio * item.cantidad;
+            totalGeneral += subtotal;
+            mensaje += `- ${item.cantidad}x ${item.nombre} = $${subtotal} ($${item.precio} c/u)%0A`;
+        });
+        mensaje += `%0A💰 *TOTAL: $${totalGeneral}*%0A`;
+        mensaje += `🚚 Envío a toda La Habana (consultar costo)%0A`;
+        mensaje += `🕘 Horario 9am-9pm.%0A`;
+        mensaje += `📞 Mi WhatsApp: +53 63220737%0A`;
+        mensaje += `¡Gracias por pedir en Nostalgia Cubana! 🇨🇺`;
+        return mensaje;
+    }
+
+    // Enviar pedido a WhatsApp
+    function enviarPedidoWhatsApp() {
+        const mensaje = generarMensajePedido();
+        if (!mensaje) return;
+        const url = `https://wa.me/53563220737?text=${mensaje}`;
+        window.open(url, "_blank");
+    }
+
+    // Renderizar menús en la columna izquierda con botones "Agregar"
+    function renderMenu(items, containerId) {
         const container = document.getElementById(containerId);
         if (!container) return;
         container.innerHTML = "";
         items.forEach(item => {
-            const itemDiv = document.createElement("div");
-            itemDiv.className = "menu-item";
-
-            const infoDiv = document.createElement("div");
-            infoDiv.className = "item-info";
-            infoDiv.innerHTML = `
-                <span class="item-name">${item.nombre}</span>
-                <span class="item-price">$${item.precio}</span>
+            const div = document.createElement("div");
+            div.className = "menu-item";
+            div.innerHTML = `
+                <div class="item-info">
+                    <div class="item-name">${item.nombre}</div>
+                    <div class="item-price">$${item.precio}</div>
+                </div>
+                <button class="btn-agregar" data-nombre="${item.nombre}" data-precio="${item.precio}">➕ Agregar</button>
             `;
-
-            const btn = document.createElement("button");
-            btn.className = "btn-pedir";
-            btn.textContent = "🍽️ Pedir";
-            const mensaje = `Hola, quiero pedir: *${item.nombre}* ($${item.precio}) de Nostalgia Cubana.`;
-            btn.onclick = () => {
-                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(mensaje)}`, "_blank");
-            };
-
-            itemDiv.appendChild(infoDiv);
-            itemDiv.appendChild(btn);
-            container.appendChild(itemDiv);
+            const btn = div.querySelector(".btn-agregar");
+            btn.addEventListener("click", () => {
+                addToCart({ nombre: item.nombre, precio: item.precio });
+            });
+            container.appendChild(div);
         });
     }
 
-    renderItems(entrantes, "entrantes-grid");
-    renderItems(tostones, "tostones-grid");
-    renderItems(guarniciones, "guarniciones-grid");
-    renderItems(principales, "principales-grid");
+    // Inicializar toda la página
+    function init() {
+        renderMenu(entrantes, "entrantes-grid");
+        renderMenu(tostones, "tostones-grid");
+        renderMenu(guarniciones, "guarniciones-grid");
+        renderMenu(principales, "principales-grid");
+        document.getElementById("btn-finalizar").addEventListener("click", enviarPedidoWhatsApp);
+        renderCart();
+    }
+
+    init();
 </script>
 </body>
 </html>
