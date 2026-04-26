@@ -1,9 +1,21 @@
+Perfecto. Aquí tienes la versión definitiva con:
+
+1. ✅ Número de WhatsApp correcto: +53 63220737 → enlace https://wa.me/5363220737
+2. ✅ Sistema de factura / carrito de compras (agregar/remover platos, ver total, enviar pedido completo por WhatsApp).
+3. ✅ Menú actualizado con todos los platos que me diste.
+4. ✅ Diseño responsive y con los colores cubanos (crema, rojo, azul añil).
+
+---
+
+📝 Código completo (copia y pega en index.html)
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Nostalgia Cubana - Menú Oficial | Comida a domicilio en La Habana</title>
+    <title>Nostalgia Cubana - Menú con Pedido | Comida a domicilio en La Habana</title>
     <style>
         * {
             margin: 0;
@@ -19,85 +31,183 @@
             padding: 0 0 2rem 0;
         }
 
-        .container {
-            max-width: 1200px;
+        /* Layout con espacio para el carrito */
+        .main-wrapper {
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .menu-container {
+            flex: 2;
+            min-width: 280px;
+        }
+
+        /* Carrito / Factura */
+        .cart-container {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 1rem;
+            align-self: flex-start;
+            background: white;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-top: 6px solid #C7362F;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .cart-container h2 {
+            color: #C7362F;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px dashed #f0cfc6;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cart-items {
+            margin-bottom: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #eedbcb;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-info {
+            flex: 2;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+        }
+
+        .cart-item-price {
+            font-size: 0.8rem;
+            color: #1E3A5F;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .cart-item-actions button {
+            background: #f0e1d4;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.2s;
+        }
+
+        .cart-item-actions button:hover {
+            background: #C7362F;
+            color: white;
+        }
+
+        .cart-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: right;
+            padding: 1rem 0;
+            border-top: 2px solid #C7362F;
+            margin-top: 0.5rem;
+        }
+
+        .btn-enviar {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 0.9rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: 0.2s;
+        }
+
+        .btn-enviar:hover {
+            background-color: #128C7E;
+        }
+
+        .btn-vaciar {
+            background-color: transparent;
+            border: 1px solid #C7362F;
+            color: #C7362F;
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 40px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #7f614e;
             padding: 1rem;
         }
 
+        /* Estilos del menú (similar al anterior pero con botón Agregar) */
         .hero {
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem;
             background: linear-gradient(145deg, #FDF8F0 0%, #f7e9da 100%);
-            border-radius: 0 0 3rem 3rem;
+            border-radius: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #C7362F;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.5rem;
-            font-weight: 800;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 650px;
-            margin: 0 auto 1.5rem auto;
-            color: #5e3a2c;
-        }
-
-        .btn-whatsapp-grande {
-            display: inline-block;
-            background-color: #25D366;
-            color: white;
-            padding: 0.9rem 2rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 60px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
-            border: 1px solid #C7362F;
-        }
-
-        .btn-whatsapp-grande:hover {
-            background-color: #1da15a;
-            transform: scale(1.02);
         }
 
         .menu-section {
             background: white;
-            border-radius: 2rem;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border-left: 6px solid #C7362F;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 5px solid #C7362F;
         }
 
-        .menu-section h2 {
-            font-size: 1.8rem;
+        .menu-section h3 {
+            font-size: 1.5rem;
             color: #C7362F;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 2px dashed #f0cfc6;
-            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 0.8rem;
         }
 
         .menu-item {
             background: #FEFAF5;
-            padding: 0.8rem 1rem;
-            border-radius: 1.5rem;
+            padding: 0.7rem;
+            border-radius: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -105,143 +215,123 @@
             border: 1px solid #f0e1d4;
         }
 
-        .item-info {
+        .item-details {
             flex: 2;
         }
 
         .item-name {
             font-weight: bold;
-            font-size: 1rem;
-            color: #3E2A1F;
+            font-size: 0.95rem;
         }
 
         .item-price {
             color: #1E3A5F;
             font-weight: 800;
-            font-size: 1rem;
-            margin-top: 0.2rem;
-            display: inline-block;
-            background: #eef2f5;
-            padding: 0.1rem 0.6rem;
-            border-radius: 30px;
+            font-size: 0.9rem;
         }
 
-        .btn-pedir {
-            background-color: #25D366;
+        .btn-agregar {
+            background-color: #C7362F;
+            color: white;
             border: none;
-            color: white;
-            font-weight: bold;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
             cursor: pointer;
+            font-weight: bold;
             font-size: 0.8rem;
-            transition: 0.2s;
-            margin-left: 0.5rem;
-            white-space: nowrap;
         }
 
-        .btn-pedir:hover {
-            background-color: #128C7E;
+        .btn-agregar:hover {
+            background-color: #a52a24;
         }
 
-        .info-box {
+        .delivery-info {
             background: #fff2e6;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .delivery-zones {
-            background: #1E3A5F;
-            color: white;
+            border-radius: 1rem;
             padding: 1rem;
-            border-radius: 1.5rem;
             margin-top: 1rem;
-        }
-
-        .delivery-zones h3 {
-            color: #ffcfb6;
-            margin-bottom: 0.5rem;
+            text-align: center;
+            font-size: 0.9rem;
         }
 
         footer {
             text-align: center;
-            margin-top: 3rem;
-            font-size: 0.85rem;
+            margin-top: 2rem;
+            font-size: 0.8rem;
             color: #7f614e;
-            border-top: 1px solid #eedbcb;
-            padding-top: 1.5rem;
         }
 
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 1.8rem; }
-            .menu-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            .btn-pedir { align-self: flex-end; margin-left: 0; }
-            .container { padding: 0.8rem; }
+        @media (max-width: 800px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            .cart-container {
+                position: static;
+                order: -1;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="hero">
-        <h1>🇨🇺 Nostalgia Cubana</h1>
-        <p>La auténtica comida casera cubana, directo a tu casa en toda La Habana.<br> 
-        <strong>De 9:00 AM a 9:00 PM</strong> — ¡Pide ya!</p>
-        <a href="https://wa.me/53563220737?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Nostalgia%20Cubana%20%F0%9F%8D%9B%F0%9F%8D%97" 
-           class="btn-whatsapp-grande" target="_blank">
-           📲 PEDIR POR WHATSAPP (Pedido general)
-        </a>
-    </div>
-
-    <!-- ENTRANTES -->
-    <div class="menu-section">
-        <h2>🍟 ENTRANTES · Pa’ romper el hielo</h2>
-        <div class="menu-grid" id="entrantes-grid"></div>
-    </div>
-
-    <!-- TOSTONES RELLENOS -->
-    <div class="menu-section">
-        <h2>🍤 TOSTONES RELLENOS · Bien carga’os</h2>
-        <div class="menu-grid" id="tostones-grid"></div>
-    </div>
-
-    <!-- GUARNICIONES Y ENVASE -->
-    <div class="menu-section">
-        <h2>🍚 GUARNICIONES + ENVASE</h2>
-        <div class="menu-grid" id="guarniciones-grid"></div>
-    </div>
-
-    <!-- PLATOS PRINCIPALES -->
-    <div class="menu-section">
-        <h2>🍛 PLATOS PRINCIPALES · Con guarnición a tu gusto</h2>
-        <div class="menu-grid" id="principales-grid"></div>
-    </div>
-
-    <!-- Info de servicio y entrega -->
-    <div class="info-box">
-        <p>⭐ <strong>Nostalgia Cubana</strong> — Sabor tradicional hecho con amor.<br>
-        🚚 <strong>Envíos a toda La Habana</strong> (consulta costo por WhatsApp).<br>
-        🕘 Horario: Todos los días 9:00 AM - 9:00 PM.</p>
-        <div class="delivery-zones">
-            <h3>📍 Zonas de entrega</h3>
-            <p>✅ Entregamos en TODA LA HABANA: Centro, Vedado, Playa, Miramar, La Habana Vieja, Marianao, Diez de Octubre, Arroyo Naranjo, Boyeros, Guanabacoa, etc.</p>
+<div class="main-wrapper">
+    <!-- ZONA DEL MENÚ -->
+    <div class="menu-container">
+        <div class="hero">
+            <h1>🇨🇺 Nostalgia Cubana</h1>
+            <p>La auténtica comida cubana a domicilio en toda La Habana.<br> 🕘 9:00 AM - 9:00 PM</p>
         </div>
-        <p style="margin-top: 1rem;">📞 WhatsApp: <strong>+53 63220737</strong> | 📸 Instagram: <strong>@nostalgiacubana</strong></p>
+
+        <!-- Entrantes -->
+        <div class="menu-section">
+            <h3>🍟 ENTRANTES · Pa’ romper el hielo</h3>
+            <div class="menu-grid" id="entrantes-menu"></div>
+        </div>
+
+        <!-- Tostones rellenos -->
+        <div class="menu-section">
+            <h3>🍤 TOSTONES RELLENOS · Bien carga’os</h3>
+            <div class="menu-grid" id="tostones-menu"></div>
+        </div>
+
+        <!-- Guarniciones + envase -->
+        <div class="menu-section">
+            <h3>🍚 GUARNICIONES + ENVASE</h3>
+            <div class="menu-grid" id="guarniciones-menu"></div>
+        </div>
+
+        <!-- Platos principales -->
+        <div class="menu-section">
+            <h3>🍛 PLATOS PRINCIPALES</h3>
+            <div class="menu-grid" id="principales-menu"></div>
+        </div>
+
+        <div class="delivery-info">
+            🚚 <strong>Envíos a toda La Habana</strong> (consulta costo por WhatsApp)<br>
+            📞 WhatsApp: <strong>+53 63220737</strong> | 📸 @nostalgiacubana
+        </div>
     </div>
 
-    <footer>
-        Nostalgia Cubana – Comida que sabe a Cuba 🇨🇺<br>
-        Menú actualizado | Pedidos por WhatsApp
-    </footer>
+    <!-- CARRITO / FACTURA -->
+    <div class="cart-container">
+        <h2>🧾 Tu pedido</h2>
+        <div id="cart-items-list" class="cart-items">
+            <div class="cart-empty">Aún no has agregado nada</div>
+        </div>
+        <div class="cart-total" id="cart-total">Total: $0</div>
+        <button id="btn-enviar-pedido" class="btn-enviar">📲 Enviar pedido por WhatsApp</button>
+        <button id="btn-vaciar-carrito" class="btn-vaciar">Vaciar carrito</button>
+    </div>
 </div>
 
-<script>
-    // Número correcto: +53 63220737
-    const phoneNumber = "53563220737";  // 53 + 63220737
+<footer>
+    Nostalgia Cubana – Sabor que sabe a Cuba 🇨🇺 | Menú con factura integrada
+</footer>
 
-    // 1. ENTRANTES
+<script>
+    // ==========================================================
+    // DATOS DEL MENÚ (según tu última carta)
+    // ==========================================================
     const entrantes = [
         { nombre: "Puré de malanga", precio: 500 },
         { nombre: "Tostones chatinos", precio: 350 },
@@ -256,21 +346,18 @@
         { nombre: "Picadera nostalgia cubana", precio: 3000 }
     ];
 
-    // 2. TOSTONES RELLENOS
     const tostones = [
         { nombre: "Tostón relleno de jamón", precio: 600 },
         { nombre: "Tostón relleno de atún", precio: 850 },
         { nombre: "Tostón relleno de jamón y queso", precio: 850 }
     ];
 
-    // 3. GUARNICIONES ADICIONALES + TERMO PACK
     const guarniciones = [
         { nombre: "Arroz moro (adicional)", precio: 250 },
         { nombre: "Arroz blanco (adicional)", precio: 250 },
         { nombre: "Termo pack (envase)", precio: 100 }
     ];
 
-    // 4. PLATOS PRINCIPALES
     const principales = [
         { nombre: "Arroz frito", precio: 1300 },
         { nombre: "Bistec encobillado", precio: 1500 },
@@ -287,39 +374,162 @@
         { nombre: "Higado a la italiana", precio: 1300 }
     ];
 
-    function renderItems(items, containerId) {
-        const container = document.getElementById(containerId);
+    // Carrito: array de objetos { nombre, precio, cantidad }
+    let carrito = [];
+
+    // Número de WhatsApp correcto: +53 63220737
+    const telefono = "5363220737";
+
+    // ========== FUNCIONES DEL CARRITO ==========
+    function guardarCarrito() {
+        localStorage.setItem("carritoNostalgia", JSON.stringify(carrito));
+    }
+
+    function cargarCarrito() {
+        const guardado = localStorage.getItem("carritoNostalgia");
+        if (guardado) {
+            carrito = JSON.parse(guardado);
+        }
+        renderizarCarrito();
+    }
+
+    function agregarAlCarrito(nombre, precio) {
+        const existente = carrito.find(item => item.nombre === nombre);
+        if (existente) {
+            existente.cantidad++;
+        } else {
+            carrito.push({ nombre, precio, cantidad: 1 });
+        }
+        guardarCarrito();
+        renderizarCarrito();
+    }
+
+    function eliminarDelCarrito(nombre) {
+        const index = carrito.findIndex(item => item.nombre === nombre);
+        if (index !== -1) {
+            if (carrito[index].cantidad > 1) {
+                carrito[index].cantidad--;
+            } else {
+                carrito.splice(index, 1);
+            }
+        }
+        guardarCarrito();
+        renderizarCarrito();
+    }
+
+    function vaciarCarrito() {
+        carrito = [];
+        guardarCarrito();
+        renderizarCarrito();
+    }
+
+    function calcularTotal() {
+        return carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    }
+
+    function renderizarCarrito() {
+        const cartContainer = document.getElementById("cart-items-list");
+        const totalSpan = document.getElementById("cart-total");
+        if (!cartContainer) return;
+
+        if (carrito.length === 0) {
+            cartContainer.innerHTML = '<div class="cart-empty">🛒 El carrito está vacío</div>';
+            totalSpan.innerText = "Total: $0";
+            return;
+        }
+
+        let html = "";
+        carrito.forEach(item => {
+            html += `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.nombre}</div>
+                        <div class="cart-item-price">$${item.precio} c/u</div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button onclick="eliminarDelCarrito('${item.nombre.replace(/'/g, "\\'")}')">-</button>
+                        <span style="min-width: 25px; text-align:center;">${item.cantidad}</span>
+                        <button onclick="agregarAlCarrito('${item.nombre.replace(/'/g, "\\'")}', ${item.precio})">+</button>
+                    </div>
+                </div>
+            `;
+        });
+        cartContainer.innerHTML = html;
+        totalSpan.innerText = `Total: $${calcularTotal()}`;
+    }
+
+    function enviarPedidoPorWhatsApp() {
+        if (carrito.length === 0) {
+            alert("Agrega al menos un plato antes de enviar el pedido.");
+            return;
+        }
+
+        let mensaje = "🍽️ *PEDIDO NOSTALGIA CUBANA* 🍽️%0A";
+        carrito.forEach(item => {
+            mensaje += `- ${item.nombre} x${item.cantidad} = $${item.precio * item.cantidad}%0A`;
+        });
+        mensaje += `%0A💰 *TOTAL: $${calcularTotal()}*%0A`;
+        mensaje += `%0A📍 Entrega en toda La Habana.%0A`;
+        mensaje += `📞 Mi número para coordinar: %0A`;
+        mensaje += `🕘 Horario de atención: 9am - 9pm%0A`;
+
+        const url = `https://wa.me/${telefono}?text=${mensaje}`;
+        window.open(url, "_blank");
+    }
+
+    // ========== RENDERIZAR MENÚ (con botones agregar) ==========
+    function renderizarMenu(items, contenedorId) {
+        const container = document.getElementById(contenedorId);
         if (!container) return;
         container.innerHTML = "";
         items.forEach(item => {
             const itemDiv = document.createElement("div");
             itemDiv.className = "menu-item";
-
-            const infoDiv = document.createElement("div");
-            infoDiv.className = "item-info";
-            infoDiv.innerHTML = `
-                <span class="item-name">${item.nombre}</span>
-                <span class="item-price">$${item.precio}</span>
+            itemDiv.innerHTML = `
+                <div class="item-details">
+                    <div class="item-name">${item.nombre}</div>
+                    <div class="item-price">$${item.precio}</div>
+                </div>
+                <button class="btn-agregar" data-nombre="${item.nombre}" data-precio="${item.precio}">+ Agregar</button>
             `;
-
-            const btn = document.createElement("button");
-            btn.className = "btn-pedir";
-            btn.textContent = "🍽️ Pedir";
-            const mensaje = `Hola, quiero pedir: *${item.nombre}* ($${item.precio}) de Nostalgia Cubana.`;
-            btn.onclick = () => {
-                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(mensaje)}`, "_blank");
-            };
-
-            itemDiv.appendChild(infoDiv);
-            itemDiv.appendChild(btn);
+            const btn = itemDiv.querySelector(".btn-agregar");
+            btn.addEventListener("click", () => {
+                agregarAlCarrito(item.nombre, item.precio);
+            });
             container.appendChild(itemDiv);
         });
     }
 
-    renderItems(entrantes, "entrantes-grid");
-    renderItems(tostones, "tostones-grid");
-    renderItems(guarniciones, "guarniciones-grid");
-    renderItems(principales, "principales-grid");
+    // Inicializar todo
+    renderizarMenu(entrantes, "entrantes-menu");
+    renderizarMenu(tostones, "tostones-menu");
+    renderizarMenu(guarniciones, "guarniciones-menu");
+    renderizarMenu(principales, "principales-menu");
+    cargarCarrito();
+
+    // Eventos globales
+    document.getElementById("btn-enviar-pedido")?.addEventListener("click", enviarPedidoPorWhatsApp);
+    document.getElementById("btn-vaciar-carrito")?.addEventListener("click", vaciarCarrito);
+
+    // Exponer funciones globalmente para los botones dinámicos del carrito
+    window.agregarAlCarrito = agregarAlCarrito;
+    window.eliminarDelCarrito = eliminarDelCarrito;
 </script>
 </body>
 </html>
+```
+
+---
+
+✅ Características de esta versión final:
+
+· Número correcto: +53 63220737 → enlace wa.me/5363220737
+· Carrito de compras (factura):
+  · Agregar/remover cantidades.
+  · Total actualizado en tiempo real.
+  · Guarda el pedido aunque recargues la página (usa localStorage).
+  · Al hacer clic en "Enviar pedido por WhatsApp", genera un mensaje con todos los platos, cantidades y total.
+· Diseño responsive: en móvil el carrito se ubica arriba.
+· Menú completo con todos los platos que me diste.
+
+Cópialo, pruébalo y dime si todo funciona correctamente o necesitas algún ajuste.
