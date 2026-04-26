@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Nostalgia Cubana - Menú con Pedido | Comida a domicilio en La Habana</title>
+    <title>Nostalgia Cubana - Sabor que enamora | Comida a domicilio en La Habana</title>
     <style>
         * {
             margin: 0;
@@ -157,7 +157,7 @@
             padding: 1rem;
         }
 
-        /* Estilos del menú (similar al anterior pero con botón Agregar) */
+        /* Estilos del menú */
         .hero {
             text-align: center;
             padding: 1.5rem 1rem;
@@ -169,6 +169,21 @@
         .hero h1 {
             font-size: 2.2rem;
             color: #C7362F;
+            margin-bottom: 0.3rem;
+        }
+
+        .slogan {
+            font-size: 1.3rem;
+            color: #1E3A5F;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #5e3a2c;
         }
 
         .menu-section {
@@ -257,6 +272,9 @@
                 position: static;
                 order: -1;
             }
+            .slogan {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -267,6 +285,7 @@
     <div class="menu-container">
         <div class="hero">
             <h1>🇨🇺 Nostalgia Cubana</h1>
+            <div class="slogan">✨ SABOR QUE ENAMORA ✨</div>
             <p>La auténtica comida cubana a domicilio en toda La Habana.<br> 🕘 9:00 AM - 9:00 PM</p>
         </div>
 
@@ -313,7 +332,7 @@
 </div>
 
 <footer>
-    Nostalgia Cubana – Sabor que sabe a Cuba 🇨🇺 | Menú con factura integrada
+    Nostalgia Cubana – Sabor que enamora 🇨🇺 | Menú con factura integrada
 </footer>
 
 <script>
@@ -453,6 +472,7 @@
         }
 
         let mensaje = "🍽️ *PEDIDO NOSTALGIA CUBANA* 🍽️%0A";
+        mensaje += "*SABOR QUE ENAMORA*%0A%0A";
         carrito.forEach(item => {
             mensaje += `- ${item.nombre} x${item.cantidad} = $${item.precio * item.cantidad}%0A`;
         });
@@ -505,19 +525,3 @@
 </script>
 </body>
 </html>
-```
-
----
-
-✅ Características de esta versión final:
-
-· Número correcto: +53 63220737 → enlace wa.me/5363220737
-· Carrito de compras (factura):
-  · Agregar/remover cantidades.
-  · Total actualizado en tiempo real.
-  · Guarda el pedido aunque recargues la página (usa localStorage).
-  · Al hacer clic en "Enviar pedido por WhatsApp", genera un mensaje con todos los platos, cantidades y total.
-· Diseño responsive: en móvil el carrito se ubica arriba.
-· Menú completo con todos los platos que me diste.
-
-Cópialo, pruébalo y dime si todo funciona correctamente o necesitas algún ajuste.
