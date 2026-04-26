@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Nostalgia Cubana - Menú Oficial | Comida a domicilio en La Habana</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #FDF8F0;
+            color: #3E2A1F;
+            line-height: 1.5;
+            padding: 0 0 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(145deg, #FDF8F0 0%, #f7e9da 100%);
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #C7362F;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto 1.5rem auto;
+            color: #5e3a2c;
+        }
+
+        .btn-whatsapp-grande {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 0.9rem 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            border: 1px solid #C7362F;
+        }
+
+        .btn-whatsapp-grande:hover {
+            background-color: #1da15a;
+            transform: scale(1.02);
+        }
+
+        .menu-section {
+            background: white;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-left: 6px solid #C7362F;
+        }
+
+        .menu-section h2 {
+            font-size: 1.8rem;
+            color: #C7362F;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px dashed #f0cfc6;
+            padding-bottom: 0.5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .menu-item {
+            background: #FEFAF5;
+            padding: 0.8rem 1rem;
+            border-radius: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid #f0e1d4;
+        }
+
+        .item-info {
+            flex: 2;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 1rem;
+            color: #3E2A1F;
+        }
+
+        .item-price {
+            color: #1E3A5F;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-top: 0.2rem;
+            display: inline-block;
+            background: #eef2f5;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+        }
+
+        .btn-pedir {
+            background-color: #25D366;
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+            margin-left: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .btn-pedir:hover {
+            background-color: #128C7E;
+        }
+
+        .info-box {
+            background: #fff2e6;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .delivery-zones {
+            background: #1E3A5F;
+            color: white;
+            padding: 1rem;
+            border-radius: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .delivery-zones h3 {
+            color: #ffcfb6;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: #7f614e;
+            border-top: 1px solid #eedbcb;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.8rem; }
+            .menu-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .btn-pedir { align-self: flex-end; margin-left: 0; }
+            .container { padding: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <h1>???? Nostalgia Cubana</h1>
+        <p>La auténtica comida casera cubana, directo a tu casa en toda La Habana.<br> 
+        <strong>De 9:00 AM a 9:00 PM</strong> — ¡Pide ya!</p>
+        <a href="https://wa.me/53563220737?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Nostalgia%20Cubana%20%F0%9F%8D%9B%F0%9F%8D%97" 
+           class="btn-whatsapp-grande" target="_blank">
+           ?? PEDIR POR WHATSAPP (Pedido general)
+        </a>
+    </div>
+
+    <!-- ENTRANTES -->
+    <div class="menu-section">
+        <h2>?? ENTRANTES · Pa’ romper el hielo</h2>
+        <div class="menu-grid" id="entrantes-grid"></div>
+    </div>
+
+    <!-- TOSTONES RELLENOS -->
+    <div class="menu-section">
+        <h2>?? TOSTONES RELLENOS · Bien carga’os</h2>
+        <div class="menu-grid" id="tostones-grid"></div>
+    </div>
+
+    <!-- GUARNICIONES Y ENVASE -->
+    <div class="menu-section">
+        <h2>?? GUARNICIONES + ENVASE</h2>
+        <div class="menu-grid" id="guarniciones-grid"></div>
+    </div>
+
+    <!-- PLATOS PRINCIPALES (NUEVA VERSIÓN) -->
+    <div class="menu-section">
+        <h2>?? PLATOS PRINCIPALES · Con guarnición a tu gusto</h2>
+        <div class="menu-grid" id="principales-grid"></div>
+    </div>
+
+    <!-- Info de servicio y entrega -->
+    <div class="info-box">
+        <p>? <strong>Nostalgia Cubana</strong> — Sabor tradicional hecho con amor.<br>
+        ?? <strong>Envíos a toda La Habana</strong> (consulta costo por WhatsApp).<br>
+        ?? Horario: Todos los días 9:00 AM - 9:00 PM.</p>
+        <div class="delivery-zones">
+            <h3>?? Zonas de entrega</h3>
+            <p>? Entregamos en TODA LA HABANA: Centro, Vedado, Playa, Miramar, La Habana Vieja, Marianao, Diez de Octubre, Arroyo Naranjo, Boyeros, Guanabacoa, etc.</p>
+        </div>
+        <p style="margin-top: 1rem;">?? WhatsApp: <strong>+53 63220737</strong> | ?? Instagram: <strong>@nostalgiacubana</strong></p>
+    </div>
+
+    <footer>
+        Nostalgia Cubana – Comida que sabe a Cuba ????<br>
+        Menú actualizado | Pedidos por WhatsApp
+    </footer>
+</div>
+
+<script>
+    // ==========================================================
+    // NUEVO MENÚ COMPLETO según archivo IMG-20260426-WA0011.jpg
+    // + Número de contacto actualizado: +53 63220737
+    // ==========================================================
+
+    const phoneNumber = "53563220737";  // Solo dígitos, sin '+' para la URL
+
+    // 1. ENTRANTES
+    const entrantes = [
+        { nombre: "Puré de malanga", precio: 500 },
+        { nombre: "Tostones chatinos", precio: 350 },
+        { nombre: "Chicharritas", precio: 300 },
+        { nombre: "Plátano frito", precio: 500 },
+        { nombre: "Garbanzo frito", precio: 1000 },
+        { nombre: "Pollo chillado", precio: 1200 },
+        { nombre: "Tamal en hoja", precio: 300 },
+        { nombre: "Tamal con chicharrones (2)", precio: 1500 },
+        { nombre: "Tamal con Masa frita y ensalada", precio: 2500 },
+        { nombre: "Tamal en casuela", precio: 1000 },
+        { nombre: "Picadera nostalgia cubana", precio: 3000 }
+    ];
+
+    // 2. TOSTONES RELLENOS
+    const tostones = [
+        { nombre: "Tostón relleno de jamón", precio: 600 },
+        { nombre: "Tostón relleno de atún", precio: 850 },
+        { nombre: "Tostón relleno de jamón y queso", precio: 850 }
+    ];
+
+    // 3. GUARNICIONES ADICIONALES + TERMO PACK
+    const guarniciones = [
+        { nombre: "Arroz moro (adicional)", precio: 250 },
+        { nombre: "Arroz blanco (adicional)", precio: 250 },
+        { nombre: "Termo pack (envase)", precio: 100 }
+    ];
+
+    // 4. PLATOS PRINCIPALES (actualizados)
+    const principales = [
+        { nombre: "Arroz frito", precio: 1300 },
+        { nombre: "Bistec encobillado", precio: 1500 },
+        { nombre: "Bistec Uruguayo", precio: 2500 },
+        { nombre: "Fricase de pollo", precio: 1800 },
+        { nombre: "Fricase de cerdo", precio: 2000 },
+        { nombre: "Pollo asado", precio: 1500 },
+        { nombre: "Pollo frito", precio: 1600 },
+        { nombre: "Fajitas de pollo", precio: 1800 },
+        { nombre: "Fajitas de cerdo", precio: 2200 },
+        { nombre: "Picadillo de la abuela (1 huevo encima)", precio: 1500 },
+        { nombre: "Picadillo a la italiana", precio: 1300 },
+        { nombre: "Mas de cerdo", precio: 2200 },
+        { nombre: "Higado a la italiana", precio: 1300 }
+    ];
+
+    // Función genérica para renderizar
+    function renderItems(items, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = "";
+        items.forEach(item => {
+            const itemDiv = document.createElement("div");
+            itemDiv.className = "menu-item";
+
+            const infoDiv = document.createElement("div");
+            infoDiv.className = "item-info";
+            infoDiv.innerHTML = `
+                <span class="item-name">${item.nombre}</span>
+                <span class="item-price">$${item.precio}</span>
+            `;
+
+            const btn = document.createElement("button");
+            btn.className = "btn-pedir";
+            btn.textContent = "??? Pedir";
+            const mensaje = `Hola, quiero pedir: *${item.nombre}* ($${item.precio}) de Nostalgia Cubana.`;
+            btn.onclick = () => {
+                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(mensaje)}`, "_blank");
+            };
+
+            itemDiv.appendChild(infoDiv);
+            itemDiv.appendChild(btn);
+            container.appendChild(itemDiv);
+        });
+    }
+
+    renderItems(entrantes, "entrantes-grid");
+    renderItems(tostones, "tostones-grid");
+    renderItems(guarniciones, "guarniciones-grid");
+    renderItems(principales, "principales-grid");
+</script>
+</body>
+</html>
