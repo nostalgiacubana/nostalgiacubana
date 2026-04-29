@@ -45,9 +45,17 @@
 
         .hero h1 { color: var(--rojo); font-size: 1.8rem; margin-bottom: 5px; }
         .hero p { font-size: 0.9rem; color: #666; font-weight: 500; }
-        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; margin-top: 8px; font-weight: bold; }
-        .open { background: #e8f5e9; color: #2e7d32; }
-        .closed { background: #ffebee; color: #c62828; }
+        
+        .status-badge { 
+            display: inline-block; 
+            padding: 6px 16px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            margin-top: 10px; 
+            font-weight: bold; 
+        }
+        .open { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+        .closed { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
 
         .menu-section {
             background: white;
@@ -55,7 +63,6 @@
             padding: 1.2rem;
             margin-bottom: 20px;
             border-left: 6px solid var(--rojo);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         .menu-section h2 { font-size: 1.1rem; color: var(--rojo); margin-bottom: 12px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px;}
@@ -72,8 +79,7 @@
             border: 1px solid #f0e1d4;
         }
 
-        .item-info { flex: 1; }
-        .item-name { font-weight: 600; font-size: 0.9rem; display: block; }
+        .item-name { font-weight: 600; font-size: 0.9rem; }
         .item-price { color: var(--azul); font-weight: 800; font-size: 0.85rem; }
 
         .btn-agregar {
@@ -87,7 +93,6 @@
             font-size: 0.8rem;
         }
 
-        /* Factura Compacta */
         .cart-col {
             flex: 1;
             min-width: 320px;
@@ -100,8 +105,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .cart-title { font-weight: 800; text-align: center; margin-bottom: 10px; border-bottom: 2px dashed #ccc; padding-bottom: 10px; }
-
         .cart-item {
             display: flex;
             align-items: center;
@@ -110,14 +113,7 @@
             gap: 8px;
         }
 
-        .cart-item-name {
-            flex: 1;
-            font-size: 0.85rem;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        .cart-item-name { flex: 1; font-size: 0.85rem; font-weight: 600; }
 
         .qty-controls {
             display: flex;
@@ -138,15 +134,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .qty-value { margin: 0 8px; font-weight: bold; font-size: 0.85rem; min-width: 15px; text-align: center; }
-
         .subtotal-text { font-weight: 700; color: var(--azul); font-size: 0.85rem; min-width: 60px; text-align: right; }
 
         .total-box { margin-top: 15px; padding-top: 10px; border-top: 2px solid var(--oscuro); text-align: right; }
-        .total-box h3 { font-size: 1.3rem; color: var(--rojo); }
+        .total-box h3 { font-size: 1.4rem; color: var(--rojo); }
 
         .btn-whatsapp {
             background-color: var(--verde);
@@ -159,13 +153,9 @@
             font-size: 1rem;
             margin-top: 15px;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .btn-whatsapp:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+        .btn-whatsapp:disabled { background-color: #bbb; cursor: not-allowed; }
 
         .delivery-info { font-size: 0.7rem; text-align: center; margin-top: 10px; color: #666; }
 
@@ -207,7 +197,7 @@
     </div>
 
     <div class="cart-col">
-        <div class="cart-title">🧾 MI PEDIDO</div>
+        <div class="cart-title" style="text-align:center; font-weight:800; margin-bottom:10px;">🧾 MI PEDIDO</div>
         <div id="cart-list">
             <p style="text-align:center; color:#999; padding:10px;">Carrito vacío</p>
         </div>
@@ -216,9 +206,7 @@
             <h3 id="total-price">$0</h3>
         </div>
         <button id="btn-pedir" onclick="enviarWhatsApp()" class="btn-whatsapp">📲 PEDIR POR WHATSAPP</button>
-        <div class="delivery-info">
-            WhatsApp: +53 63220737
-        </div>
+        <div class="delivery-info">WhatsApp: +53 63220737</div>
     </div>
 </div>
 
@@ -240,6 +228,7 @@
 
     let cart = [];
 
+    // VALIDACIÓN DE HORARIO Y DÍA
     function checkStatus() {
         const now = new Date();
         const day = now.getDay(); // 0: Dom, 1: Lun, 2: Mar...
@@ -247,12 +236,28 @@
         const btn = document.getElementById('btn-pedir');
         const badge = document.getElementById('status-badge');
 
-        if (day === 1) { // Lunes cerrado
-            badge.innerHTML = '<span class="status-badge closed">Cerrado hoy (Lunes)</span>';
-            btn.innerHTML = '🚫 CERRADO LOS LUNES';
-            btn.disabled = true;
+        let isOpen = false;
+        let message = "";
+
+        if (day === 1) { // Lunes Cerrado
+            message = "Cerrado hoy (Lunes)";
+            isOpen = false;
+        } else if (hour >= 9 && hour < 21) { // 9 AM a 9 PM
+            message = "Abierto ahora";
+            isOpen = true;
         } else {
-            badge.innerHTML = '<span class="status-badge open">Abierto ahora</span>';
+            message = "Cerrado ahora (Horario 9am-9pm)";
+            isOpen = false;
+        }
+
+        if (isOpen) {
+            badge.innerHTML = `<span class="status-badge open">🟢 ${message}</span>`;
+            btn.disabled = false;
+            btn.innerHTML = "📲 PEDIR POR WHATSAPP";
+        } else {
+            badge.innerHTML = `<span class="status-badge closed">🔴 ${message}</span>`;
+            btn.disabled = true;
+            btn.innerHTML = "CERRADO (Vuelve pronto)";
         }
     }
 
@@ -263,7 +268,7 @@
                 container.innerHTML = menuData[cat].map(item => `
                     <div class="menu-item">
                         <div class="item-info">
-                            <span class="item-name">${item.n}</span>
+                            <span class="item-name">${item.n}</span><br>
                             <span class="item-price">$${item.p}</span>
                         </div>
                         <button class="btn-agregar" onclick="addToCart('${item.n}', ${item.p})">Añadir</button>
@@ -331,6 +336,8 @@
 
     renderMenu();
     checkStatus();
+    // Revisar el horario cada minuto por si cambia mientras el cliente mira el menú
+    setInterval(checkStatus, 60000);
 </script>
 </body>
 </html>
