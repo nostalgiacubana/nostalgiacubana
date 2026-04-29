@@ -40,9 +40,14 @@
             border-radius: 20px;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #f0e1d4;
         }
 
-        .hero h1 { color: var(--rojo); font-size: 1.8rem; }
+        .hero h1 { color: var(--rojo); font-size: 1.8rem; margin-bottom: 5px; }
+        .hero p { font-size: 0.9rem; color: #666; font-weight: 500; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; margin-top: 8px; font-weight: bold; }
+        .open { background: #e8f5e9; color: #2e7d32; }
+        .closed { background: #ffebee; color: #c62828; }
 
         .menu-section {
             background: white;
@@ -50,6 +55,7 @@
             padding: 1.2rem;
             margin-bottom: 20px;
             border-left: 6px solid var(--rojo);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         .menu-section h2 { font-size: 1.1rem; color: var(--rojo); margin-bottom: 12px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px;}
@@ -153,6 +159,12 @@
             font-size: 1rem;
             margin-top: 15px;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-whatsapp:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
         .delivery-info { font-size: 0.7rem; text-align: center; margin-top: 10px; color: #666; }
@@ -169,7 +181,8 @@
     <div class="menu-col">
         <div class="hero">
             <h1>🇨🇺 Nostalgia Cubana</h1>
-            <p>9:00 AM - 9:00 PM</p>
+            <p>Martes a Domingos: 9:00 AM - 9:00 PM</p>
+            <div id="status-badge"></div>
         </div>
 
         <div class="menu-section">
@@ -202,7 +215,7 @@
             <p style="font-size:0.7rem; color:#666;">Total a pagar:</p>
             <h3 id="total-price">$0</h3>
         </div>
-        <button onclick="enviarWhatsApp()" class="btn-whatsapp">📲 PEDIR POR WHATSAPP</button>
+        <button id="btn-pedir" onclick="enviarWhatsApp()" class="btn-whatsapp">📲 PEDIR POR WHATSAPP</button>
         <div class="delivery-info">
             WhatsApp: +53 63220737
         </div>
@@ -226,6 +239,22 @@
     };
 
     let cart = [];
+
+    function checkStatus() {
+        const now = new Date();
+        const day = now.getDay(); // 0: Dom, 1: Lun, 2: Mar...
+        const hour = now.getHours();
+        const btn = document.getElementById('btn-pedir');
+        const badge = document.getElementById('status-badge');
+
+        if (day === 1) { // Lunes cerrado
+            badge.innerHTML = '<span class="status-badge closed">Cerrado hoy (Lunes)</span>';
+            btn.innerHTML = '🚫 CERRADO LOS LUNES';
+            btn.disabled = true;
+        } else {
+            badge.innerHTML = '<span class="status-badge open">Abierto ahora</span>';
+        }
+    }
 
     function renderMenu() {
         for (const cat in menuData) {
@@ -301,6 +330,7 @@
     }
 
     renderMenu();
+    checkStatus();
 </script>
 </body>
 </html>
