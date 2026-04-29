@@ -8,7 +8,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#C7362F">
     <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
 
     <style>
         :root {
@@ -26,7 +25,7 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: var(--crema);
             color: var(--oscuro);
-            padding-bottom: 80px; /* Espacio para el botón flotante */
+            padding-bottom: 20px;
         }
 
         .app-container {
@@ -50,182 +49,79 @@
             width: 100%;
         }
 
-        .logo-img {
-            max-width: 140px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
+        .logo-img { max-width: 140px; height: auto; margin-bottom: 10px; }
         .hero h1 { color: var(--rojo); font-size: 1.8rem; margin-bottom: 5px; }
         
         .status-badge { 
-            display: inline-block; 
-            padding: 8px 20px; 
-            border-radius: 25px; 
-            font-size: 0.9rem; 
-            margin-top: 10px; 
-            font-weight: bold; 
+            display: inline-block; padding: 8px 20px; border-radius: 25px; 
+            font-size: 0.9rem; margin-top: 10px; font-weight: bold; 
         }
         .open { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
         .closed { background: #fff3e0; color: #e65100; border: 1px solid #ffe0b2; }
         .monday { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
-        .countdown-timer { font-family: monospace; font-size: 1.1rem; display: block; margin-top: 4px; }
 
-        /* Columnas */
+        /* Menú y Secciones */
         .menu-col { flex: 2; min-width: 320px; }
-        .cart-col {
-            flex: 1;
-            min-width: 320px;
-            position: sticky;
-            top: 15px;
-            align-self: flex-start;
-            background: var(--blanco);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        /* Secciones del Menú */
         .menu-section {
-            background: var(--blanco);
-            border-radius: 20px;
-            padding: 1.2rem;
-            margin-bottom: 20px;
-            border-left: 6px solid var(--rojo);
+            background: var(--blanco); border-radius: 20px; padding: 1.2rem;
+            margin-bottom: 20px; border-left: 6px solid var(--rojo);
         }
-
-        .menu-section h2 { 
-            font-size: 1.1rem; 
-            color: var(--rojo); 
-            margin-bottom: 15px; 
-            text-transform: uppercase; 
-            border-bottom: 1px solid #eee; 
-            padding-bottom: 5px;
-        }
-
+        .menu-section h2 { font-size: 1.1rem; color: var(--rojo); margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; }
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-
-        .menu-item {
-            background: #fbfbfb;
-            padding: 12px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #eee;
-        }
-
-        .btn-agregar {
-            background-color: var(--rojo);
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .btn-agregar:active { transform: scale(0.9); }
+        .menu-item { background: #fbfbfb; padding: 12px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
+        .btn-agregar { background-color: var(--rojo); border: none; color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
 
         /* Carrito */
-        .cart-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-            gap: 10px;
+        .cart-col {
+            flex: 1; min-width: 320px; position: sticky; top: 15px; align-self: flex-start;
+            background: var(--blanco); border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+        .cart-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0; gap: 10px; }
+        .qty-controls { display: flex; align-items: center; background: #f0f0f0; border-radius: 20px; padding: 3px; }
+        .btn-qty { background: white; border: none; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+        .btn-whatsapp { background-color: var(--verde); color: white; border: none; padding: 16px; width: 100%; border-radius: 40px; font-weight: 800; font-size: 1.1rem; margin-top: 15px; cursor: pointer; }
 
-        .cart-item-name { flex: 1; font-size: 0.9rem; font-weight: 600; }
-
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            background: #f0f0f0;
-            border-radius: 20px;
-            padding: 3px;
-        }
-
-        .btn-qty {
-            background: white;
-            border: none;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .qty-value { margin: 0 10px; font-weight: bold; }
-        .subtotal-text { font-weight: 700; color: var(--azul); min-width: 70px; text-align: right; }
-
-        .total-box { margin-top: 20px; padding-top: 15px; border-top: 2px solid var(--oscuro); text-align: right; }
-        .total-box h3 { font-size: 1.6rem; color: var(--rojo); }
-
-        .btn-whatsapp {
-            background-color: var(--verde);
-            color: white;
-            border: none;
-            padding: 16px;
-            width: 100%;
-            border-radius: 40px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            margin-top: 15px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-        }
-
-        .btn-whatsapp:disabled { background-color: #bbb; box-shadow: none; }
-
-        /* BOTÓN FLOTANTE APK */
-        .fab-install {
+        /* BOTÓN FLOTANTE APK - PEQUEÑO Y A LA DERECHA */
+        .btn-apk-flotante {
             position: fixed;
-            bottom: 25px;
-            left: 20px;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
             background-color: var(--azul);
             color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 50px;
+            border-radius: 50%;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 1000;
-            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            z-index: 9999;
             border: 2px solid white;
-            animation: bounce 2s infinite;
+            transition: transform 0.2s;
         }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
+        .btn-apk-flotante:active { transform: scale(0.9); }
+        .btn-apk-flotante span { font-size: 0.6rem; font-weight: bold; margin-top: -2px; }
 
         @media (max-width: 800px) {
             .app-container { flex-direction: column; }
             .cart-col { position: static; order: -1; }
-            .fab-install { left: 50%; transform: translateX(-50%); width: 80%; justify-content: center; animation: none; }
         }
     </style>
 </head>
 <body>
 
-<div id="android-installer" style="display: none;">
-    <a href="nostalgiaC.apk" download class="fab-install">
-        <span style="margin-right:10px; font-size:1.2rem;">📥</span> Descargar App (.APK)
-    </a>
-</div>
+<a id="apk-btn" href="nostalgiaC.apk" download class="btn-apk-flotante" style="display: none;">
+    <div style="font-size: 1.5rem; line-height: 1;">📥</div>
+    <span>APP</span>
+</a>
 
 <div class="app-container">
     <div class="menu-col">
         <div class="hero">
-            <img src="logo.png" alt="Logo Nostalgia Cubana" class="logo-img">
+            <img src="logo.png" alt="Nostalgia Cubana" class="logo-img">
             <h1>Nostalgia Cubana</h1>
-            <p>Martes a Domingos: 9:00 AM - 9:00 PM</p>
             <div id="status-badge"></div>
         </div>
 
@@ -234,85 +130,33 @@
             <div class="menu-grid" id="grid-entrantes"></div>
         </div>
         <div class="menu-section">
-            <h2>🍤 Tostones Rellenos</h2>
-            <div class="menu-grid" id="grid-tostones"></div>
-        </div>
-        <div class="menu-section">
             <h2>🍛 Platos Principales</h2>
             <div class="menu-grid" id="grid-principales"></div>
-        </div>
-        <div class="menu-section">
-            <h2>🍚 Guarniciones</h2>
-            <div class="menu-grid" id="grid-guarniciones"></div>
         </div>
     </div>
 
     <div class="cart-col">
-        <div style="text-align:center; font-weight:800; color:var(--oscuro); margin-bottom:15px;">🧾 MI PEDIDO</div>
-        <div id="cart-list">
-            <p style="text-align:center; color:#999; padding:20px;">Tu carrito está vacío</p>
-        </div>
-        <div class="total-box">
-            <p style="font-size:0.8rem; color:#666;">Total a pagar:</p>
-            <h3 id="total-price">$0</h3>
+        <div style="text-align:center; font-weight:800; margin-bottom:15px;">🧾 MI PEDIDO</div>
+        <div id="cart-list"><p style="text-align:center; color:#999;">Carrito vacío</p></div>
+        <div style="margin-top:20px; border-top:2px solid #333; text-align:right;">
+            <p style="font-size:0.8rem;">Total:</p>
+            <h3 id="total-price" style="font-size:1.6rem; color:var(--rojo);">$0</h3>
         </div>
         <button id="btn-pedir" onclick="enviarWhatsApp()" class="btn-whatsapp">📲 PEDIR POR WHATSAPP</button>
-        <p style="text-align:center; font-size:0.7rem; color:#888; margin-top:10px;">Envíos a domicilio: +53 63220737</p>
     </div>
 </div>
 
 <script>
     const menuData = {
         entrantes: [
-            { n: "Puré de malanga", p: 500 }, { n: "Tostones chatinos", p: 350 }, { n: "Chicharritas", p: 300 }, { n: "Plátano frito", p: 500 }, { n: "Garbanzo frito", p: 1000 }, { n: "Pollo chillado", p: 1200 }, { n: "Tamal en hoja", p: 300 }, { n: "Tamal con chicharrones (2)", p: 1500 }, { n: "Tamal con Masa frita y ensalada", p: 2500 }, { n: "Tamal en casuela", p: 1000 }, { n: "Picadera nostalgia cubana", p: 3000 }
-        ],
-        tostones: [
-            { n: "Tostón relleno de jamón", p: 600 }, { n: "Tostón relleno de atún", p: 850 }, { n: "Tostón relleno de jamón y queso", p: 850 }
+            { n: "Puré de malanga", p: 500 }, { n: "Tostones chatinos", p: 350 }, { n: "Chicharritas", p: 300 }, { n: "Tamal en hoja", p: 300 }
         ],
         principales: [
-            { n: "Arroz frito", p: 1300 }, { n: "Bistec encobillado", p: 1500 }, { n: "Bistec Uruguayo", p: 2500 }, { n: "Fricase de pollo", p: 1800 }, { n: "Fricase de cerdo", p: 2000 }, { n: "Pollo asado", p: 1500 }, { n: "Pollo frito", p: 1600 }, { n: "Fajitas de pollo", p: 1800 }, { n: "Fajitas de cerdo", p: 2200 }, { n: "Picadillo de la abuela", p: 1500 }, { n: "Picadillo a la italiana", p: 1300 }, { n: "Mas de cerdo", p: 2200 }, { n: "Higado a la italiana", p: 1300 }
-        ],
-        guarniciones: [
-            { n: "Arroz moro (adicional)", p: 250 }, { n: "Arroz blanco (adicional)", p: 250 }, { n: "Termo pack (envase)", p: 100 }
+            { n: "Arroz frito", p: 1300 }, { n: "Bistec Uruguayo", p: 2500 }, { n: "Fricase de pollo", p: 1800 }, { n: "Mas de cerdo", p: 2200 }
         ]
     };
 
     let cart = [];
-
-    function checkStatus() {
-        const now = new Date();
-        const day = now.getDay(); 
-        const hour = now.getHours();
-        const btn = document.getElementById('btn-pedir');
-        const badge = document.getElementById('status-badge');
-
-        if (day === 1) { // Lunes cerrado
-            badge.innerHTML = `<span class="status-badge monday">🔴 Cerrado hoy (Lunes)</span>`;
-            btn.disabled = true;
-            btn.innerHTML = "CERRADO LOS LUNES";
-            return;
-        }
-
-        if (hour >= 9 && hour < 21) { 
-            badge.innerHTML = `<span class="status-badge open">🟢 Abierto Ahora</span>`;
-            btn.disabled = false;
-            btn.innerHTML = "📲 PEDIR POR WHATSAPP";
-        } else { 
-            let nextOpen = new Date();
-            if (hour >= 21) nextOpen.setDate(now.getDate() + 1);
-            nextOpen.setHours(9, 0, 0, 0);
-            if (nextOpen.getDay() === 1) nextOpen.setDate(nextOpen.getDate() + 1);
-
-            const diff = nextOpen - now;
-            const h = Math.floor(diff / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-
-            badge.innerHTML = `<div class="status-badge closed">⌛ Abrimos en:<br><span class="countdown-timer">${h}h ${m}m ${s}s</span></div>`;
-            btn.disabled = true;
-            btn.innerHTML = `ABRIMOS EN ${h} HORAS`;
-        }
-    }
 
     function renderMenu() {
         for (const cat in menuData) {
@@ -320,10 +164,7 @@
             if(container) {
                 container.innerHTML = menuData[cat].map(item => `
                     <div class="menu-item">
-                        <div>
-                            <p style="font-weight:600; font-size:0.95rem;">${item.n}</p>
-                            <p style="color:var(--azul); font-weight:800;">$${item.p} CUP</p>
-                        </div>
+                        <div><p style="font-weight:600;">${item.n}</p><p style="color:var(--azul); font-weight:800;">$${item.p}</p></div>
                         <button class="btn-agregar" onclick="addToCart('${item.n}', ${item.p})">Añadir</button>
                     </div>
                 `).join('');
@@ -338,60 +179,33 @@
         updateCart();
     }
 
-    function changeQty(index, delta) {
-        cart[index].qty += delta;
-        if (cart[index].qty <= 0) cart.splice(index, 1);
-        updateCart();
-    }
-
     function updateCart() {
         const list = document.getElementById("cart-list");
         const totalEl = document.getElementById("total-price");
-        if (cart.length === 0) {
-            list.innerHTML = `<p style="text-align:center; color:#999; padding:20px;">Tu carrito está vacío</p>`;
-            totalEl.innerText = "$0";
-            return;
-        }
+        if (cart.length === 0) { list.innerHTML = `<p style="text-align:center; color:#999;">Carrito vacío</p>`; totalEl.innerText = "$0"; return; }
         let total = 0;
         list.innerHTML = cart.map((item, i) => {
             const sub = item.price * item.qty;
             total += sub;
-            return `
-                <div class="cart-item">
-                    <span class="cart-item-name">${item.name}</span>
-                    <div class="qty-controls">
-                        <button class="btn-qty" onclick="changeQty(${i}, -1)">-</button>
-                        <span class="qty-value">${item.qty}</span>
-                        <button class="btn-qty" onclick="changeQty(${i}, 1)">+</button>
-                    </div>
-                    <span class="subtotal-text">$${sub}</span>
-                </div>
-            `;
+            return `<div class="cart-item"><span>${item.name}</span><div class="qty-controls"><button class="btn-qty" onclick="changeQty(${i},-1)">-</button><span style="margin:0 10px">${item.qty}</span><button class="btn-qty" onclick="changeQty(${i},1)">+</button></div><b>$${sub}</b></div>`;
         }).join('');
         totalEl.innerText = `$${total}`;
     }
 
+    function changeQty(i, d) { cart[i].qty += d; if (cart[i].qty <= 0) cart.splice(i, 1); updateCart(); }
+
     function enviarWhatsApp() {
-        if (cart.length === 0) return;
-        let total = 0;
-        let msg = "🍽️ *NUEVO PEDIDO: NOSTALGIA CUBANA*%0A%0A";
-        cart.forEach(item => {
-            const sub = item.price * item.qty;
-            total += sub;
-            msg += `✅ *${item.qty}x* ${item.name} ($${sub})%0A`;
-        });
-        msg += `%0A💰 *TOTAL A PAGAR: $${total} CUP*%0A%0A📍 *Dirección de entrega:*%0A_(Escribe aquí tu dirección)_`;
+        let msg = "🍽️ *PEDIDO NOSTALGIA CUBANA*%0A";
+        cart.forEach(i => msg += `• ${i.qty}x ${i.name}%0A`);
         window.open(`https://wa.me/5363220737?text=${msg}`, "_blank");
     }
 
-    // Mostrar instalador si es Android
+    // Mostrar botón de descarga solo en Android
     if (/Android/i.test(navigator.userAgent)) {
-        document.getElementById("android-installer").style.display = "block";
+        document.getElementById("apk-btn").style.display = "flex";
     }
 
     renderMenu();
-    checkStatus();
-    setInterval(checkStatus, 1000);
 </script>
 </body>
 </html>
