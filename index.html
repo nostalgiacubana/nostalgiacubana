@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Nostalgia Cubana - Menú Digital</title>
+    <title>Nostalgia Cubana - Menú</title>
     <style>
         :root {
             --rojo: #C7362F;
@@ -35,164 +35,127 @@
 
         .hero {
             text-align: center;
-            padding: 2rem 1rem;
-            background: linear-gradient(145deg, #ffffff, #f7e9da);
+            padding: 1.5rem;
+            background: white;
             border-radius: 20px;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .hero h1 { font-size: 2.2rem; color: var(--rojo); margin-bottom: 5px; }
+        .hero h1 { color: var(--rojo); font-size: 1.8rem; }
 
         .menu-section {
             background: white;
             border-radius: 20px;
-            padding: 1.5rem;
+            padding: 1.2rem;
             margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
             border-left: 6px solid var(--rojo);
         }
 
-        .menu-section h2 {
-            font-size: 1.2rem;
-            color: var(--rojo);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
+        .menu-section h2 { font-size: 1.1rem; color: var(--rojo); margin-bottom: 12px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px;}
 
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px;
-        }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
 
         .menu-item {
             background: #fff;
-            padding: 12px;
-            border-radius: 15px;
+            padding: 10px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border: 1px solid #f0e1d4;
         }
 
-        .item-name { font-weight: 600; font-size: 0.95rem; }
-        .item-price { color: var(--azul); font-weight: 800; }
+        .item-info { flex: 1; }
+        .item-name { font-weight: 600; font-size: 0.9rem; display: block; }
+        .item-price { color: var(--azul); font-weight: 800; font-size: 0.85rem; }
 
         .btn-agregar {
             background-color: var(--rojo);
             border: none;
             color: white;
-            padding: 8px 16px;
-            border-radius: 25px;
+            padding: 6px 12px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 0.8rem;
         }
 
-        /* Carrito / Factura */
+        /* Factura Compacta */
         .cart-col {
             flex: 1;
-            min-width: 300px;
+            min-width: 320px;
             position: sticky;
             top: 15px;
             align-self: flex-start;
             background: white;
             border-radius: 20px;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .cart-title {
-            font-size: 1.3rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 15px;
-            border-bottom: 2px dashed #ccc;
-            padding-bottom: 10px;
-        }
+        .cart-title { font-weight: 800; text-align: center; margin-bottom: 10px; border-bottom: 2px dashed #ccc; padding-bottom: 10px; }
 
         .cart-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #f2f2f2;
-        }
-
-        .cart-item-header {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .cart-item-name { font-size: 0.9rem; font-weight: 600; }
-
-        .cart-item-actions {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f9f9f9;
+            gap: 8px;
         }
 
-        /* Botones Mas/Menos */
+        .cart-item-name {
+            flex: 1;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .qty-controls {
             display: flex;
             align-items: center;
             background: #f0f0f0;
-            border-radius: 30px;
+            border-radius: 20px;
             padding: 2px;
         }
 
         .btn-qty {
             background: white;
             border: none;
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .qty-value {
-            margin: 0 12px;
-            font-weight: bold;
-            min-width: 20px;
-            text-align: center;
-        }
+        .qty-value { margin: 0 8px; font-weight: bold; font-size: 0.85rem; min-width: 15px; text-align: center; }
 
-        .subtotal-text { font-weight: 700; color: var(--azul); }
+        .subtotal-text { font-weight: 700; color: var(--azul); font-size: 0.85rem; min-width: 60px; text-align: right; }
 
-        .total-box {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 2px solid var(--oscuro);
-            text-align: right;
-        }
-
-        .total-box h3 { font-size: 1.6rem; color: var(--rojo); }
+        .total-box { margin-top: 15px; padding-top: 10px; border-top: 2px solid var(--oscuro); text-align: right; }
+        .total-box h3 { font-size: 1.3rem; color: var(--rojo); }
 
         .btn-whatsapp {
             background-color: var(--verde);
             color: white;
             border: none;
-            padding: 16px;
+            padding: 14px;
             width: 100%;
             border-radius: 40px;
             font-weight: 800;
             font-size: 1rem;
-            margin-top: 20px;
+            margin-top: 15px;
             cursor: pointer;
         }
 
-        .delivery-info {
-            font-size: 0.75rem;
-            text-align: center;
-            margin-top: 15px;
-            color: #666;
-        }
+        .delivery-info { font-size: 0.7rem; text-align: center; margin-top: 10px; color: #666; }
 
         @media (max-width: 800px) {
             .app-container { flex-direction: column; }
@@ -206,7 +169,7 @@
     <div class="menu-col">
         <div class="hero">
             <h1>🇨🇺 Nostalgia Cubana</h1>
-            <p>Sabor casero directo a tu mesa<br>🕘 9:00 AM - 9:00 PM</p>
+            <p>9:00 AM - 9:00 PM</p>
         </div>
 
         <div class="menu-section">
@@ -225,7 +188,7 @@
         </div>
 
         <div class="menu-section">
-            <h2>🍚 Guarniciones y Otros</h2>
+            <h2>🍚 Guarniciones</h2>
             <div class="menu-grid" id="grid-guarniciones"></div>
         </div>
     </div>
@@ -233,16 +196,15 @@
     <div class="cart-col">
         <div class="cart-title">🧾 MI PEDIDO</div>
         <div id="cart-list">
-            <p style="text-align:center; color:#999; padding:20px;">Tu carrito está vacío</p>
+            <p style="text-align:center; color:#999; padding:10px;">Carrito vacío</p>
         </div>
         <div class="total-box">
-            <p style="font-size:0.8rem; color:#666;">Total a pagar:</p>
+            <p style="font-size:0.7rem; color:#666;">Total a pagar:</p>
             <h3 id="total-price">$0</h3>
         </div>
         <button onclick="enviarWhatsApp()" class="btn-whatsapp">📲 PEDIR POR WHATSAPP</button>
         <div class="delivery-info">
-            🚚 Envío a toda La Habana (consultar costo)<br>
-            📞 WhatsApp: +53 63220737
+            WhatsApp: +53 63220737
         </div>
     </div>
 </div>
@@ -250,42 +212,16 @@
 <script>
     const menuData = {
         entrantes: [
-            { n: "Puré de malanga", p: 500 },
-            { n: "Tostones chatinos", p: 350 },
-            { n: "Chicharritas", p: 300 },
-            { n: "Plátano frito", p: 500 },
-            { n: "Garbanzo frito", p: 1000 },
-            { n: "Pollo chillado", p: 1200 },
-            { n: "Tamal en hoja", p: 300 },
-            { n: "Tamal con chicharrones (2)", p: 1500 },
-            { n: "Tamal con Masa frita y ensalada", p: 2500 },
-            { n: "Tamal en casuela", p: 1000 },
-            { n: "Picadera nostalgia cubana", p: 3000 }
+            { n: "Puré de malanga", p: 500 }, { n: "Tostones chatinos", p: 350 }, { n: "Chicharritas", p: 300 }, { n: "Plátano frito", p: 500 }, { n: "Garbanzo frito", p: 1000 }, { n: "Pollo chillado", p: 1200 }, { n: "Tamal en hoja", p: 300 }, { n: "Tamal con chicharrones (2)", p: 1500 }, { n: "Tamal con Masa frita y ensalada", p: 2500 }, { n: "Tamal en casuela", p: 1000 }, { n: "Picadera nostalgia cubana", p: 3000 }
         ],
         tostones: [
-            { n: "Tostón relleno de jamón", p: 600 },
-            { n: "Tostón relleno de atún", p: 850 },
-            { n: "Tostón relleno de jamón y queso", p: 850 }
+            { n: "Tostón relleno de jamón", p: 600 }, { n: "Tostón relleno de atún", p: 850 }, { n: "Tostón relleno de jamón y queso", p: 850 }
         ],
         principales: [
-            { n: "Arroz frito", p: 1300 },
-            { n: "Bistec encobillado", p: 1500 },
-            { n: "Bistec Uruguayo", p: 2500 },
-            { n: "Fricase de pollo", p: 1800 },
-            { n: "Fricase de cerdo", p: 2000 },
-            { n: "Pollo asado", p: 1500 },
-            { n: "Pollo frito", p: 1600 },
-            { n: "Fajitas de pollo", p: 1800 },
-            { n: "Fajitas de cerdo", p: 2200 },
-            { n: "Picadillo de la abuela", p: 1500 },
-            { n: "Picadillo a la italiana", p: 1300 },
-            { n: "Mas de cerdo", p: 2200 },
-            { n: "Higado a la italiana", p: 1300 }
+            { n: "Arroz frito", p: 1300 }, { n: "Bistec encobillado", p: 1500 }, { n: "Bistec Uruguayo", p: 2500 }, { n: "Fricase de pollo", p: 1800 }, { n: "Fricase de cerdo", p: 2000 }, { n: "Pollo asado", p: 1500 }, { n: "Pollo frito", p: 1600 }, { n: "Fajitas de pollo", p: 1800 }, { n: "Fajitas de cerdo", p: 2200 }, { n: "Picadillo de la abuela", p: 1500 }, { n: "Picadillo a la italiana", p: 1300 }, { n: "Mas de cerdo", p: 2200 }, { n: "Higado a la italiana", p: 1300 }
         ],
         guarniciones: [
-            { n: "Arroz moro (adicional)", p: 250 },
-            { n: "Arroz blanco (adicional)", p: 250 },
-            { n: "Termo pack (envase)", p: 100 }
+            { n: "Arroz moro (adicional)", p: 250 }, { n: "Arroz blanco (adicional)", p: 250 }, { n: "Termo pack (envase)", p: 100 }
         ]
     };
 
@@ -297,8 +233,8 @@
             if(container) {
                 container.innerHTML = menuData[cat].map(item => `
                     <div class="menu-item">
-                        <div>
-                            <span class="item-name">${item.n}</span><br>
+                        <div class="item-info">
+                            <span class="item-name">${item.n}</span>
                             <span class="item-price">$${item.p}</span>
                         </div>
                         <button class="btn-agregar" onclick="addToCart('${item.n}', ${item.p})">Añadir</button>
@@ -318,72 +254,53 @@
         updateCart();
     }
 
-    // Nueva función para botones + y -
     function changeQty(index, delta) {
         cart[index].qty += delta;
-        if (cart[index].qty <= 0) {
-            cart.splice(index, 1);
-        }
+        if (cart[index].qty <= 0) cart.splice(index, 1);
         updateCart();
     }
 
     function updateCart() {
         const list = document.getElementById("cart-list");
         const totalEl = document.getElementById("total-price");
-        
         if (cart.length === 0) {
-            list.innerHTML = `<p style="text-align:center; color:#999; padding:20px;">Tu carrito está vacío</p>`;
+            list.innerHTML = `<p style="text-align:center; color:#999; padding:10px;">Carrito vacío</p>`;
             totalEl.innerText = "$0";
             return;
         }
-
         let total = 0;
         list.innerHTML = cart.map((item, i) => {
             const sub = item.price * item.qty;
             total += sub;
             return `
                 <div class="cart-item">
-                    <div class="cart-item-header">
-                        <span class="cart-item-name">${item.name}</span>
-                        <span class="subtotal-text">$${sub}</span>
+                    <span class="cart-item-name">${item.name}</span>
+                    <div class="qty-controls">
+                        <button class="btn-qty" onclick="changeQty(${i}, -1)">-</button>
+                        <span class="qty-value">${item.qty}</span>
+                        <button class="btn-qty" onclick="changeQty(${i}, 1)">+</button>
                     </div>
-                    <div class="cart-item-actions">
-                        <div class="qty-controls">
-                            <button class="btn-qty" onclick="changeQty(${i}, -1)">-</button>
-                            <span class="qty-value">${item.qty}</span>
-                            <button class="btn-qty" onclick="changeQty(${i}, 1)">+</button>
-                        </div>
-                        <button style="background:none; border:none; color:#999; font-size:0.7rem; cursor:pointer;" onclick="changeQty(${i}, -999)">Eliminar</button>
-                    </div>
+                    <span class="subtotal-text">$${sub}</span>
                 </div>
             `;
         }).join('');
-        
         totalEl.innerText = `$${total}`;
     }
 
     function enviarWhatsApp() {
-        if (cart.length === 0) return alert("¡Agrega algo sabroso al carrito primero!");
-        
+        if (cart.length === 0) return;
         let total = 0;
-        let msg = "🍽️ *PEDIDO - NOSTALGIA CUBANA*%0A";
-        msg += "------------------------------%0A";
-        
+        let msg = "🍽️ *PEDIDO NOSTALGIA CUBANA*%0A";
         cart.forEach(item => {
             const sub = item.price * item.qty;
             total += sub;
-            msg += `• *${item.qty}x* ${item.name} ($${sub})%0A`;
+            msg += `• ${item.qty}x ${item.name} ($${sub})%0A`;
         });
-        
-        msg += "------------------------------%0A";
-        msg += `💰 *TOTAL A PAGAR: $${total} CUP*%0A%0A`;
-        msg += "📍 *Dirección:*%0A";
-        
+        msg += `%0A💰 *TOTAL: $${total} CUP*%0A%0A📍 *Dirección:*`;
         window.open(`https://wa.me/5363220737?text=${msg}`, "_blank");
     }
 
     renderMenu();
 </script>
-
 </body>
 </html>
