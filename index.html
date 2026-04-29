@@ -31,7 +31,6 @@
             padding: 15px;
         }
 
-        /* Menú */
         .menu-col { flex: 2; min-width: 320px; }
 
         .hero {
@@ -59,7 +58,6 @@
             color: var(--rojo);
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 1px;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
         }
@@ -78,11 +76,10 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid #f0e1d4;
-            transition: 0.2s;
         }
 
-        .item-name { font-weight: 600; font-size: 0.95rem; display: block; }
-        .item-price { color: var(--azul); font-weight: 800; font-size: 0.9rem; }
+        .item-name { font-weight: 600; font-size: 0.95rem; }
+        .item-price { color: var(--azul); font-weight: 800; }
 
         .btn-agregar {
             background-color: var(--rojo);
@@ -92,10 +89,9 @@
             border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.8rem;
         }
 
-        /* Carrito / Factura Estilo Ticket */
+        /* Carrito / Factura */
         .cart-col {
             flex: 1;
             min-width: 300px;
@@ -106,13 +102,11 @@
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid #ddd;
         }
 
         .cart-title {
             font-size: 1.3rem;
             font-weight: 800;
-            color: var(--oscuro);
             text-align: center;
             margin-bottom: 15px;
             border-bottom: 2px dashed #ccc;
@@ -120,29 +114,56 @@
         }
 
         .cart-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-name { font-size: 0.9rem; font-weight: 600; }
+
+        .cart-item-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f9f9f9;
         }
 
-        .cart-item-name { font-size: 0.85rem; font-weight: 600; flex: 1; }
+        /* Botones Mas/Menos */
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 2px;
+        }
 
-        .cart-controls { display: flex; align-items: center; gap: 8px; }
+        .btn-qty {
+            background: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-        .cart-qty-input {
-            width: 40px;
+        .qty-value {
+            margin: 0 12px;
+            font-weight: bold;
+            min-width: 20px;
             text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 3px;
-            font-size: 0.85rem;
         }
 
-        .subtotal-text { font-weight: 700; font-size: 0.85rem; min-width: 65px; text-align: right; }
-
-        .btn-remove { background: none; border: none; color: #ff4444; cursor: pointer; font-weight: bold; }
+        .subtotal-text { font-weight: 700; color: var(--azul); }
 
         .total-box {
             margin-top: 20px;
@@ -151,20 +172,26 @@
             text-align: right;
         }
 
-        .total-box h3 { font-size: 1.4rem; color: var(--rojo); }
+        .total-box h3 { font-size: 1.6rem; color: var(--rojo); }
 
         .btn-whatsapp {
             background-color: var(--verde);
             color: white;
             border: none;
-            padding: 15px;
+            padding: 16px;
             width: 100%;
             border-radius: 40px;
             font-weight: 800;
             font-size: 1rem;
             margin-top: 20px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .delivery-info {
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
         }
 
         @media (max-width: 800px) {
@@ -206,21 +233,21 @@
     <div class="cart-col">
         <div class="cart-title">🧾 MI PEDIDO</div>
         <div id="cart-list">
-            <p style="text-align:center; color:#999; padding:20px;">El carrito está vacío</p>
+            <p style="text-align:center; color:#999; padding:20px;">Tu carrito está vacío</p>
         </div>
         <div class="total-box">
             <p style="font-size:0.8rem; color:#666;">Total a pagar:</p>
             <h3 id="total-price">$0</h3>
         </div>
         <button onclick="enviarWhatsApp()" class="btn-whatsapp">📲 PEDIR POR WHATSAPP</button>
-        <p style="font-size:0.7rem; text-align:center; margin-top:10px; color:#888;">
-            * Envío a toda La Habana (costo adicional)
-        </p>
+        <div class="delivery-info">
+            🚚 Envío a toda La Habana (consultar costo)<br>
+            📞 WhatsApp: +53 63220737
+        </div>
     </div>
 </div>
 
 <script>
-    // LISTA DE PRECIOS ORIGINAL (Sin cambios)
     const menuData = {
         entrantes: [
             { n: "Puré de malanga", p: 500 },
@@ -264,23 +291,23 @@
 
     let cart = [];
 
-    // Dibujar el menú
     function renderMenu() {
         for (const cat in menuData) {
             const container = document.getElementById(`grid-${cat}`);
-            container.innerHTML = menuData[cat].map(item => `
-                <div class="menu-item">
-                    <div>
-                        <span class="item-name">${item.n}</span>
-                        <span class="item-price">$${item.p}</span>
+            if(container) {
+                container.innerHTML = menuData[cat].map(item => `
+                    <div class="menu-item">
+                        <div>
+                            <span class="item-name">${item.n}</span><br>
+                            <span class="item-price">$${item.p}</span>
+                        </div>
+                        <button class="btn-agregar" onclick="addToCart('${item.n}', ${item.p})">Añadir</button>
                     </div>
-                    <button class="btn-agregar" onclick="addToCart('${item.n}', ${item.p})">Añadir</button>
-                </div>
-            `).join('');
+                `).join('');
+            }
         }
     }
 
-    // Lógica del carrito mejorada
     function addToCart(name, price) {
         const index = cart.findIndex(i => i.name === name);
         if (index > -1) {
@@ -291,11 +318,11 @@
         updateCart();
     }
 
-    function changeQty(index, newQty) {
-        if (newQty <= 0) {
+    // Nueva función para botones + y -
+    function changeQty(index, delta) {
+        cart[index].qty += delta;
+        if (cart[index].qty <= 0) {
             cart.splice(index, 1);
-        } else {
-            cart[index].qty = parseInt(newQty);
         }
         updateCart();
     }
@@ -305,7 +332,7 @@
         const totalEl = document.getElementById("total-price");
         
         if (cart.length === 0) {
-            list.innerHTML = `<p style="text-align:center; color:#999; padding:20px;">El carrito está vacío</p>`;
+            list.innerHTML = `<p style="text-align:center; color:#999; padding:20px;">Tu carrito está vacío</p>`;
             totalEl.innerText = "$0";
             return;
         }
@@ -316,11 +343,17 @@
             total += sub;
             return `
                 <div class="cart-item">
-                    <span class="cart-item-name">${item.name}</span>
-                    <div class="cart-controls">
-                        <input type="number" class="cart-qty-input" value="${item.qty}" onchange="changeQty(${i}, this.value)">
+                    <div class="cart-item-header">
+                        <span class="cart-item-name">${item.name}</span>
                         <span class="subtotal-text">$${sub}</span>
-                        <button class="btn-remove" onclick="changeQty(${i}, 0)">✕</button>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="qty-controls">
+                            <button class="btn-qty" onclick="changeQty(${i}, -1)">-</button>
+                            <span class="qty-value">${item.qty}</span>
+                            <button class="btn-qty" onclick="changeQty(${i}, 1)">+</button>
+                        </div>
+                        <button style="background:none; border:none; color:#999; font-size:0.7rem; cursor:pointer;" onclick="changeQty(${i}, -999)">Eliminar</button>
                     </div>
                 </div>
             `;
@@ -329,12 +362,11 @@
         totalEl.innerText = `$${total}`;
     }
 
-    // Formatear mensaje de WhatsApp
     function enviarWhatsApp() {
-        if (cart.length === 0) return alert("El carrito está vacío");
+        if (cart.length === 0) return alert("¡Agrega algo sabroso al carrito primero!");
         
         let total = 0;
-        let msg = "🇨🇺 *PEDIDO DE NOSTALGIA CUBANA*%0A";
+        let msg = "🍽️ *PEDIDO - NOSTALGIA CUBANA*%0A";
         msg += "------------------------------%0A";
         
         cart.forEach(item => {
@@ -344,10 +376,10 @@
         });
         
         msg += "------------------------------%0A";
-        msg += `💰 *TOTAL A PAGAR: $${total}*%0A%0A`;
-        msg += "📍 *Dirección de entrega:*%0A";
+        msg += `💰 *TOTAL A PAGAR: $${total} CUP*%0A%0A`;
+        msg += "📍 *Dirección:*%0A";
         
-        window.open(`https://wa.me/53563220737?text=${msg}`, "_blank");
+        window.open(`https://wa.me/5363220737?text=${msg}`, "_blank");
     }
 
     renderMenu();
